@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Food Ordering Application Tracker">
+    <title>CraveTracker | Premium Meals</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">Crave<span>Tracker</span></h1>
+            <button id="cart-btn" class="cart-btn">
+                <svg viewBox="0 0 20 20" fill="currentColor" class="cart-icon">
+                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                </svg>
+                <span>Your Cart</span>
+                <span id="cart-badge" class="badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <h2>Delicious Food, Delivered To You</h2>
+            <p>Choose your favorite meal from our broad selection of available meals and enjoy a delicious lunch or dinner at home.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="meals-card">
+            <ul id="meals-list">
+                <!-- Meals injected via JS -->
+            </ul>
+        </div>
+    </main>
+
+    <!-- Cart Modal Overlay -->
+    <div id="backdrop" class="backdrop"></div>
+    <div id="cart-modal" class="modal">
+        <h2 class="modal-title">Shopping Cart</h2>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items injected via JS -->
+        </div>
+        <div class="cart-total">
+            <span>Total Amount</span>
+            <span id="cart-total-price">$0.00</span>
+        </div>
+
+        <!-- Checkout Form initially hidden -->
+        <form id="checkout-form" class="checkout-form hidden">
+            <h3>Delivery Details</h3>
+            <div class="form-control">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-control">
+                <label for="street">Street</label>
+                <input type="text" id="street" required>
+            </div>
+            <div class="form-control">
+                <label for="postal">Postal Code</label>
+                <input type="text" id="postal" required>
+            </div>
+            <div class="form-control">
+                <label for="city">City</label>
+                <input type="text" id="city" required>
+            </div>
+            <div id="form-actions" class="modal-actions">
+                <button type="button" class="btn btn-alt" id="form-cancel-btn">Cancel</button>
+                <button type="submit" class="btn">Confirm Order</button>
+            </div>
+        </form>
+
+        <div id="cart-actions" class="modal-actions">
+            <button id="close-cart-btn" class="btn btn-alt">Close</button>
+            <button id="order-btn" class="btn">Order</button>
+        </div>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div id="success-modal" class="modal hidden">
+        <h2 class="modal-title success-title">🎉 Order Placed Successfully!</h2>
+        <p class="success-text">Your delicious meal is being prepared and will be tracked shortly.</p>
+        <div class="modal-actions">
+            <button id="close-success-btn" class="btn">Back to Menu</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
