@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Header({ cartItemsCount, onOpenCart }) {
+export default function Header({ cartItemsCount, onOpenCart, onLogout }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerContent}>
@@ -11,13 +11,19 @@ export default function Header({ cartItemsCount, onOpenCart }) {
           Crave<Text style={styles.logoHighlight}>Tracker</Text>
         </Text>
         
-        <TouchableOpacity style={styles.cartBtn} onPress={onOpenCart} activeOpacity={0.8}>
-          <Ionicons name="cart" size={20} color={colors.primary} />
-          <Text style={styles.cartText}>Your Cart</Text>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{cartItemsCount}</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.cartBtn} onPress={onOpenCart} activeOpacity={0.8}>
+            <Ionicons name="cart" size={18} color={colors.primary} />
+            <Text style={styles.cartText}>Cart</Text>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{cartItemsCount}</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.logoutBtn} onPress={onLogout} activeOpacity={0.8}>
+            <Ionicons name="log-out-outline" size={20} color={colors.textMuted} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -48,16 +54,30 @@ const styles = StyleSheet.create({
   logoHighlight: {
     color: colors.primary,
   },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
   cartBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.primaryLight,
-    borderColor: colors.primary,
+    borderColor: 'rgba(255, 68, 68, 0.2)',
     borderWidth: 1,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 9999,
-    gap: 8,
+  },
+  logoutBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderColor: 'rgba(255,255,255,0.1)',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cartText: {
     color: colors.primary,
@@ -67,14 +87,14 @@ const styles = StyleSheet.create({
   },
   badge: {
     backgroundColor: colors.primary,
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 9999,
     marginLeft: 6,
   },
   badgeText: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: 'bold',
   },
 });

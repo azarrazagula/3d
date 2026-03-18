@@ -7,6 +7,7 @@ import MealsList from './src/components/MealsList';
 import CartModal from './src/components/CartModal';
 import CheckoutModal from './src/components/CheckoutModal';
 import SuccessModal from './src/components/SuccessModal';
+import AuthScreen from './src/components/AuthScreen';
 
 import { AVAILABLE_MEALS } from './src/data/meals';
 import { colors } from './src/theme/colors';
@@ -14,10 +15,20 @@ import { colors } from './src/theme/colors';
 const heroImage = require('./assets/images/hero_bg.png');
 
 export default function App() {
+  const [currentUser, setCurrentUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [cartIsVisible, setCartIsVisible] = useState(false);
   const [checkoutIsVisible, setCheckoutIsVisible] = useState(false);
   const [successIsVisible, setSuccessIsVisible] = useState(false);
+
+  // Auth Logic
+  const handleLogin = (username) => {
+    setCurrentUser(username);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+  };
 
   // Cart Logic
   const handleAddToCart = (mealId, amount) => {
@@ -82,6 +93,10 @@ export default function App() {
 
   const totalCartItems = cart.reduce((sum, item) => sum + item.amount, 0);
 
+  if (!currentUser) {
+    return <AuthScreen onLogin={handleLogin} />;
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
@@ -98,7 +113,11 @@ export default function App() {
       </View>
 
       <SafeAreaView style={styles.safeArea}>
-        <Header cartItemsCount={totalCartItems} onOpenCart={handleOpenCart} />
+        <Header 
+          cartItemsCount={totalCartItems} 
+          onOpenCart={handleOpenCart} 
+          onLogout={handleLogout} 
+        />
         
         <ScrollView 
           showsVerticalScrollIndicator={false} 
