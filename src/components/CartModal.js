@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Image, Platform } from 'react-native';
 import { colors } from '../theme/colors';
 
 export default function CartModal({
@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   modalView: {
-    width: '100%',
+    width: Platform.OS === 'web' ? '60%' : '90%',
+    maxWidth: Platform.OS === 'web' ? 600 : '100%',
     maxHeight: '90%',
     backgroundColor: 'rgba(15, 17, 26, 0.98)',
     borderRadius: 20,
@@ -113,10 +114,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   itemImage: {
-    width: 60,
-    height: 60,
+    width: Platform.OS === 'web' ? 120 : 60,
+    height: Platform.OS === 'web' ? 120 : 60,
     borderRadius: 8,
-    marginRight: 12,
+    marginRight: 16,
   },
   cartItemInfo: {
     flex: 1,

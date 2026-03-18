@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, Platform } from 'react-native';
 import { colors } from '../theme/colors';
 
 export default function SuccessModal({ visible, onClose }) {
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   modalView: {
-    width: '100%',
+    width: Platform.OS === 'web' ? '50%' : '90%',
+    maxWidth: Platform.OS === 'web' ? 500 : '100%',
     backgroundColor: 'rgba(15, 17, 26, 0.98)',
     borderRadius: 20,
     padding: 32,
