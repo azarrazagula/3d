@@ -16,7 +16,6 @@ import {
 import { colors } from '../theme/colors';
 
 const { width } = Dimensions.get('window');
-const heroImage = require('../../assets/images/hero_bg.png');
 const FIREBASE_URL = 'https://http-bfc51-default-rtdb.asia-southeast1.firebasedatabase.app/';
 
 export default function AuthScreen({ onLogin }) {
@@ -96,97 +95,94 @@ export default function AuthScreen({ onLogin }) {
   };
 
   return (
-    <ImageBackground source={heroImage} style={styles.background} resizeMode="cover">
-      <View style={styles.overlay} />
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-        style={styles.container}
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      style={styles.container}
+    >
+      <Animated.View 
+        style={[
+          styles.glassCard, 
+          { 
+            opacity: fadeAnim,
+            transform: [{ translateY: slideAnim }]
+          }
+        ]}
       >
-        <Animated.View 
-          style={[
-            styles.glassCard, 
-            { 
-              opacity: fadeAnim,
-              transform: [{ translateY: slideAnim }]
-            }
-          ]}
-        >
-          <Text style={styles.title}>CraveTracker</Text>
-          <Text style={styles.subtitle}>
-            {stage === 'login' ? 'Welcome! Please login to continue.' : 'Enter the 4-digit code sent to your phone.'}
-          </Text>
+        <Text style={styles.title}>CraveTracker</Text>
+        <Text style={styles.subtitle}>
+          {stage === 'login' ? 'Welcome! Please login to continue.' : 'Enter the 4-digit code sent to your phone.'}
+        </Text>
 
-          {stage === 'login' ? (
-            <View style={styles.form}>
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Username</Text>
-                <TextInput 
-                  style={styles.input} 
-                  placeholder="Enter your name"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  value={username}
-                  onChangeText={setUsername}
-                />
-              </View>
-
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>Phone Number</Text>
-                <TextInput 
-                  style={styles.input} 
-                  placeholder="e.g. +91 9876543210"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  keyboardType="phone-pad"
-                  value={phoneNumber}
-                  onChangeText={setPhoneNumber}
-                />
-              </View>
-
-              <TouchableOpacity 
-                style={styles.button} 
-                onPress={handleGetOtp}
-                disabled={loading}
-              >
-                {loading ? (
-                  <ActivityIndicator color="white" />
-                ) : (
-                  <Text style={styles.buttonText}>Get OTP</Text>
-                )}
-              </TouchableOpacity>
+        {stage === 'login' ? (
+          <View style={styles.form}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Username</Text>
+              <TextInput 
+                style={styles.input} 
+                placeholder="Enter your name"
+                placeholderTextColor="rgba(255,255,255,0.4)"
+                value={username}
+                onChangeText={setUsername}
+              />
             </View>
-          ) : (
-            <View style={styles.form}>
-              <View style={styles.inputGroup}>
-                <Text style={styles.label}>OTP Code</Text>
-                <TextInput 
-                  placeholder="0 0 0 0"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  keyboardType="number-pad"
-                  maxLength={4}
-                  value={otp}
-                  onChangeText={setOtp}
-                  textAlign="center"
-                  style={[styles.input, { letterSpacing: 10, fontSize: 24 }]}
-                />
-              </View>
 
-              <TouchableOpacity 
-                style={styles.button} 
-                onPress={handleVerifyOtp}
-              >
-                <Text style={styles.buttonText}>Verify & Enter</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity 
-                style={styles.backButton} 
-                onPress={() => setStage('login')}
-              >
-                <Text style={styles.backButtonText}>Change Number</Text>
-              </TouchableOpacity>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Phone Number</Text>
+              <TextInput 
+                style={styles.input} 
+                placeholder="e.g. +91 9876543210"
+                placeholderTextColor="rgba(255,255,255,0.4)"
+                keyboardType="phone-pad"
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
+              />
             </View>
-          )}
-        </Animated.View>
-      </KeyboardAvoidingView>
-    </ImageBackground>
+
+            <TouchableOpacity 
+              style={styles.button} 
+              onPress={handleGetOtp}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="white" />
+              ) : (
+                <Text style={styles.buttonText}>Get OTP</Text>
+              )}
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.form}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>OTP Code</Text>
+              <TextInput 
+                placeholder="0 0 0 0"
+                placeholderTextColor="rgba(255,255,255,0.4)"
+                keyboardType="number-pad"
+                maxLength={4}
+                value={otp}
+                onChangeText={setOtp}
+                textAlign="center"
+                style={[styles.input, { letterSpacing: 10, fontSize: 24 }]}
+              />
+            </View>
+
+            <TouchableOpacity 
+              style={styles.button} 
+              onPress={handleVerifyOtp}
+            >
+              <Text style={styles.buttonText}>Verify & Enter</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.backButton} 
+              onPress={() => setStage('login')}
+            >
+              <Text style={styles.backButtonText}>Change Number</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Animated.View>
+    </KeyboardAvoidingView>
   );
 }
 

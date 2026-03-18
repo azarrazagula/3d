@@ -93,15 +93,11 @@ export default function App() {
 
   const totalCartItems = cart.reduce((sum, item) => sum + item.amount, 0);
 
-  if (!currentUser) {
-    return <AuthScreen onLogin={handleLogin} />;
-  }
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       
-      {/* Fixed Background Layer */}
+      {/* Global Background Layer */}
       <View style={StyleSheet.absoluteFill}>
         <ImageBackground 
           source={heroImage} 
@@ -112,23 +108,27 @@ export default function App() {
         </ImageBackground>
       </View>
 
-      <SafeAreaView style={styles.safeArea}>
-        <Header 
-          cartItemsCount={totalCartItems} 
-          onOpenCart={handleOpenCart} 
-          onLogout={handleLogout} 
-        />
-        
-        <ScrollView 
-          showsVerticalScrollIndicator={false} 
-          contentContainerStyle={styles.scrollContent}
-        >
-          <Hero />
-          <MealsList meals={AVAILABLE_MEALS} onAddToCart={handleAddToCart} />
-        </ScrollView>
-      </SafeAreaView>
+      {!currentUser ? (
+        <AuthScreen onLogin={handleLogin} />
+      ) : (
+        <SafeAreaView style={styles.safeArea}>
+          <Header 
+            cartItemsCount={totalCartItems} 
+            onOpenCart={handleOpenCart} 
+            onLogout={handleLogout} 
+          />
+          
+          <ScrollView 
+            showsVerticalScrollIndicator={false} 
+            contentContainerStyle={styles.scrollContent}
+          >
+            <Hero />
+            <MealsList meals={AVAILABLE_MEALS} onAddToCart={handleAddToCart} />
+          </ScrollView>
+        </SafeAreaView>
+      )}
 
-      {/* Modals */}
+      {/* Modals remain outside SafeAreaView but inside the root container */}
       <CartModal 
         visible={cartIsVisible} 
         cartItems={cart} 
